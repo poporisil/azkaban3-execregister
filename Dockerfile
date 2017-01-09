@@ -7,7 +7,7 @@ ENV DATASOURCE_URL		jdbc:mysql://localhost:3306/azkaban
 ENV DATASOURCE_USERNAME	azkaban
 ENV DATASOURCE_PASSWORD	azkaban
 ENV ETCD_URL			http://localhost:4001
-ENV ETCD_EXECUTOR_KEY	/containers/poporisil/azkaban3-execservcer
+ENV ETCD_EXECUTOR_KEY	/containers/poporisil/azkaban3-execserver
 ENV AZK_REST_URL		http://localhost:8081
 ENV AZK_REST_USERNAME	admin
 ENV AZK_REST_PASSWORD	azkaban

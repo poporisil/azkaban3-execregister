@@ -27,6 +27,7 @@ public class RegisterService {
 	@Autowired
 	private AzkabanRestService azkRestService;
 	
+	private boolean needSync = false;
 	
 	@Scheduled(fixedDelayString="${register.interval}")
 	public void register() throws Exception {
@@ -76,8 +77,16 @@ public class RegisterService {
 		}
 
 		if(syncExecList.size() > 0) {
+			needSync = true;
+		}
+		if(needSync) {
 			logger.info("send reload");
-			azkRestService.sendReloadExecutors();
+			try {
+				azkRestService.sendReloadExecutors();
+				needSync= false;
+			} catch (Exception e) {
+				logger.error("fail to sendReloadExecutors", e);
+			}
 		}
 	}
 }

@@ -32,16 +32,14 @@ public class EtcdRepository {
 		List<AzkExecutor> execList = new ArrayList<AzkExecutor>();
 		if(resp.getNode().isDir()) {
 			for(EtcdNode node: resp.getNode().getNodes()) {
-				String nodeName = node.getKey().substring(etcdExecutorKey.length()+1);
-				if(!nodeName.equals("port")) {
-					String[] value = node.getValue().split("\\:");
-					if(value.length==2) {
-						AzkExecutor exec = new AzkExecutor();
-						exec.setHost(value[0]);
-						exec.setPort(Integer.parseInt(value[1]));
-						exec.setActive(true);
-						execList.add(exec);
-					}
+				String binding = node.getValue().split(",")[0].split("-")[0];
+				String value[] = binding.split("\\:");
+				if(value.length==2) {
+					AzkExecutor exec = new AzkExecutor();
+					exec.setHost(value[0]);
+					exec.setPort(Integer.parseInt(value[1]));
+					exec.setActive(true);
+					execList.add(exec);
 				}
 			}
 		}

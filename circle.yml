@@ -1,0 +1,20 @@
+machine:
+  java:
+    version: oraclejdk8
+  services:
+    - docker
+
+compile:
+  override:
+    - ./gradlew --stacktrace clean build
+    - bash ./docker_build.sh
+test:
+  override:
+    - echo "ignore test..."
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - bash ./docker_release.sh

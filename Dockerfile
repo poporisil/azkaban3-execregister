@@ -18,7 +18,8 @@ ENV REGISTER_INTERVAL	10000
 
 ADD build/libs/azkaban3-execregister.jar app.jar
 RUN sh -c 'touch /app.jar'
-
+RUN addgroup -S -g 1000 app
+RUN adduser -S -u 1000 -G app app
 
 
 ## Run container ###############################################
